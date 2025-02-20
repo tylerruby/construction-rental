@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { prisma } from '@/lib/db'
+import { authOptions } from '@/lib/auth' // Assuming you have authOptions defined in a separate file
 
 const authOptions = {
   providers: [
@@ -70,4 +71,7 @@ const authOptions = {
 }
 
 const handler = NextAuth(authOptions)
-export { handler as GET, handler as POST } 
+
+export default function handler(req, res) {
+  return NextAuth(req, res, authOptions)
+} 
